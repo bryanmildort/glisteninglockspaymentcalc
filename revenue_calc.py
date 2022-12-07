@@ -9,15 +9,15 @@ def payment_calc(revenue):
         revenue = revenue[revenue["Provider or Instructor"] == provider]
     revenue["Amount Charged"] = revenue["Amount Charged"].replace('[\$,]', '', regex=True).astype(float)
     revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
-    gross = float(round(revenue["Amount Charged"].sum(), 2))
-    gratuity = float(round(revenue["Gratuity"].sum(), 2))
-    services = float(round((gross - gratuity), 2))
-    cash_payments = float(round(revenue[revenue['Tender Type'] == 'Cash']['Amount Charged'].sum()))
-    cash_commission = float(round((cash_payments*0.3), 2))
-    cash_total = float(round((cash_payments - cash_commission), 2))
-    digital_payments = float(round((services - cash_payments), 2))
-    commission = float(round(digital_payments*0.3, 2))
-    final_payment = float(round(digital_payments*0.7 + gratuity, 2))
+    gross = round(revenue["Amount Charged"].sum(), 2)
+    gratuity = round(revenue["Gratuity"].sum(), 2)
+    services = round((gross - gratuity), 2)
+    cash_payments = round(revenue[revenue['Tender Type'] == 'Cash']['Amount Charged'].sum())
+    cash_commission = round((cash_payments*0.3), 2)
+    cash_total = round((cash_payments - cash_commission), 2)
+    digital_payments = round((services - cash_payments), 2)
+    commission = round(digital_payments*0.3, 2)
+    final_payment = round(digital_payments*0.7 + gratuity, 2)
 
     return {
         'Gross': gross,
