@@ -12,18 +12,23 @@ def payment_calc(revenue):
     gross = round(revenue["Amount Charged"].sum(), 2)
     gratuity = round(revenue["Gratuity"].sum(), 2)
     services = round((gross - gratuity), 2)
-    commission = round(services*0.3, 2)
-    payment = round(services*0.7 + gratuity, 2)
+    cash_payments = round(revenue[revenue['Tender Type'] == 'Cash']['Amount Charged'].sum())
+    digital_payments = round((services - cash_payments),2)
+    commission = round(digital_payments*0.3, 2)
+    final_payment = round(digital_payments*0.7 + gratuity, 2)
+
     return {
         'Gross': gross,
         'Gratuity': gratuity,
-        'Services': services,
-        'Commission': commission,
-        'Payment': payment
+        'Net Services': services,
+        'Digital Payments': digital_payments,
+        'Cash Payments': cash_payments,
+        'Digital Commissions': commission,
+        'Final Payment': final_payment
     }
 
 st.markdown("<h2 style='text-align: center; color: #F7349F;'>GlisteningLocks™ Payment Calculator</h1>", unsafe_allow_html=True)
-provider = st.selectbox('Provider:', ('All Providers', 'Kristany Niblack', 'Avril Johnson', 'Ty-Ree Jackson'))
+provider = st.selectbox('Provider:', ('All Providers', 'Kristany Niblack', 'Avril Johnson', 'Ty-Ree Jackson', 'Shelia Vines'))
 file = st.file_uploader("Upload Worksheet (downloaded 'Recorded_Revenues.xls' report from Schedulicity):")
 if file is not None:
     sheet = pd.read_csv(file, delimiter='\t')
