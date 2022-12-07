@@ -26,7 +26,7 @@ def payment_calc(revenue):
         'Digital Payments': digital_payments,
         'Cash Payments': cash_payments,
         'Cash Commissions': cash_commission,
-        'Total Cash Payments Paid': cash_total,
+        'Disbursed Cash Payments': cash_total,
         'Digital Commissions': commission,
         'Final Payment': final_payment
     }
