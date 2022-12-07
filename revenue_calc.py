@@ -36,7 +36,5 @@ provider = st.selectbox('Provider:', ('All Providers', 'Kristany Niblack', 'Avri
 file = st.file_uploader("Upload Worksheet (downloaded 'Recorded_Revenues.xls' report from Schedulicity):")
 if file is not None:
     sheet = pd.read_csv(file, delimiter='\t')
-    results = payment_calc(sheet)
-    st.write(results.pop('Final Payment'))
-    final = 'Final Payment: ' + str(results.get('Final Payment'))
-    st.write(final)
+    st.write(payment_calc(sheet))
+
