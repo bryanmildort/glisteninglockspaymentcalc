@@ -38,5 +38,5 @@ if file is not None:
     sheet = pd.read_csv(file, delimiter='\t')
     results = payment_calc(sheet)
     st.write(results.pop('Final Payment'))
-    final = results['Final Payment']
+    final = 'Final Payment: ' + str(results.get('Final Payment'))
     st.write(final)
