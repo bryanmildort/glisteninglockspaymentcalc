@@ -46,7 +46,7 @@ def payment_calc(revenue):
         'Final Electronic Payment Due': final_payment
     }
     st.write(results)
-    keep = ['Processed On','Description','Provider or Instructor','Client Name','Amount Charged','Gratuity','Product']
+    keep = ['Processed On','Description','Provider or Instructor','Client Name','Amount Charged','Gratuity','Confirmation Code','Product']
     st.write(services[keep])
     st.write(products[keep])
 
