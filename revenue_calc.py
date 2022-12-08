@@ -47,7 +47,8 @@ def payment_calc(revenue):
     }
     st.write(results)
     keep = ['Processed On','Description','Provider or Instructor','Client Name','Amount Charged','Gratuity','Product']
-    st.write(revenue[keep])
+    st.write(services[keep])
+    st.write(products[keep])
 
 def calc(revenue):
     global gratuity, revenuecopy, products, services, provider
