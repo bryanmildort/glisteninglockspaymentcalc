@@ -40,9 +40,9 @@ def payment_calc(revenue):
         'Cash Transactions': cash,
         #'Cash Commissions': cash_commission,
         #'Disbursed Cash Payments': net_cash,
-        'Electronic Product Commissions': prod_commission,
-        'Electronic Service Commissions': serv_commission,
-        'Total Electronic Commissions': commission,
+        'Product Commissions': prod_commission,
+        'Service Commissions': serv_commission,
+        'Total Commissions': commission,
         'Final Payment Due': final_payment
     }
     st.write(results)
