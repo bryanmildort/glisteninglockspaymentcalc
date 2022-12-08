@@ -38,10 +38,10 @@ def payment_calc(revenue):
         'Net Services/Products': products_services,
         'Digital Transactions': digital_payments,
         'Cash Transactions': cash,
-        'Cash Commissions': cash_commission,
-        'Disbursed Cash Payments': net_cash,
-        'Product Commissions': prod_commission,
-        'Service Commissions': serv_commission,
+        #'Cash Commissions': cash_commission,
+        #'Disbursed Cash Payments': net_cash,
+        'Electronic Product Commissions': prod_commission,
+        'Electronic Service Commissions': serv_commission,
         'Total Electronic Commissions': commission,
         'Final Payment Due': final_payment
     }
