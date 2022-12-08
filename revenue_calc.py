@@ -47,7 +47,9 @@ def payment_calc(revenue):
     }
     st.write(results)
     keep = ['Processed On','Description','Provider or Instructor','Client Name','Amount Charged','Gratuity','Confirmation Code','Product']
+    st.write('Services:')
     st.write(services[keep])
+    st.write('Products:')
     st.write(products[keep])
 
 def calc(revenue):
