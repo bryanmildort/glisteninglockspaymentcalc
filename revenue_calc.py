@@ -11,7 +11,7 @@ def payment_calc(revenue):
     if provider != 'All Providers':
         revenue = revenue[revenue["Provider or Instructor"] == provider].reset_index()
     revenue["Amount Charged"] = revenue["Amount Charged"].replace('[\$,]', '', regex=True).astype(float)
-    revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
+    #revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
     gross = round(revenue["Amount Charged"].sum(), 2)
     #gratuity = round(revenue["Gratuity"].sum(), 2)
     services = round((gross - gratuity), 2)
@@ -36,6 +36,7 @@ def payment_calc(revenue):
 
 def calc(revenue):
     global gratuity
+    revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
     gratuity = round(revenue["Gratuity"].sum(), 2)
     revenue['Product'] = ''
     revenuelist = list(revenue['Description'].to_list())
