@@ -36,6 +36,8 @@ def payment_calc(revenue):
         'Gross': gross,
         'Total Electronic Gratuity': gratuity,
         'Net Services/Products': products_services,
+        'Net Services': gross_services - gratuity,
+        'Net Products': gross_products,
         'Digital Transactions': digital_payments,
         'Cash Transactions': cash,
         #'Cash Commissions': cash_commission,
