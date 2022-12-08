@@ -43,7 +43,7 @@ def payment_calc(revenue):
         'Product Commissions': prod_commission,
         'Service Commissions': serv_commission,
         'Total Commissions': commission,
-        'Final Payment Due': final_payment
+        'Final Electronic Payment Due': final_payment
     }
     st.write(results)
 
