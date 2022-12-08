@@ -60,6 +60,7 @@ def payment_calc(revenue):
 def calc(revenue):
     global gratuity, revenuecopy, products, services, provider, exceptions
     gratuity = 0
+    exceptions = pd.DataFrame
     revenue['Description'] = revenue['Description'].replace('No show fee','No show fee|$40.00')
     revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
     gratuity = round(revenue["Gratuity"].sum(), 2)
@@ -89,7 +90,7 @@ def calc(revenue):
         desc_list = description.split('|')
         try:
             price = desc_list[1]
-        except:
+        except Exception:
             exceptions = exceptions.append(revenuecopy.iloc[index])
             revenuecopy = revenuecopy.drop[index]
 
