@@ -56,7 +56,7 @@ def calc(revenue):
     revenue['Product'] = ''
     revenuelist = list(revenue['Description'].to_list())
     revenuecopy = pd.DataFrame(columns = revenue.columns)
-    restrictlist = ['Retightening', 'hrs', 'Consultation', 'Install', 'install', 'Follow-up', 'Maintenance', 'maintenance', 'Deep Conditioning', 'Repair', 'Shampoo', 'Balance', 'balance', 'Color', 'color']
+    restrictlist = ['Retightening', 'Reti', 'reti' 'hrs', 'Consultation', 'Install', 'install', 'Follow-up', 'Maintenance', 'maintenance', 'Deep Conditioning', 'Repair', 'Shampoo', 'Balance', 'balance', 'Color', 'color']
     for i in revenuelist:
         description = str(i)
         size = len(description)
