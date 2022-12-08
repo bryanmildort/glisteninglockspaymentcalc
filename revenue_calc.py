@@ -46,6 +46,8 @@ def payment_calc(revenue):
         'Final Electronic Payment Due': final_payment
     }
     st.write(results)
+    keep = ['Processed On','Description','Provider or Instructor','Client Name','Amount Charged','Gratuity','Product']
+    st.write(revenue[keep])
 
 def calc(revenue):
     global gratuity, revenuecopy, products, services, provider
