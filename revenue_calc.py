@@ -48,7 +48,7 @@ def payment_calc(revenue):
         'Final Electronic Payment Due': final_payment
     }
     if not exceptions.empty:
-        st.write('Alert! The following transactions could not be recognized:')
+        st.write('ATTENTION! The following transactions could not be recognized:')
         st.write(exceptions)
     st.write(results)
     keep = ['Processed On','Description','Provider or Instructor','Client Name','Amount Charged','Gratuity','Confirmation Code','Product']
@@ -60,14 +60,13 @@ def payment_calc(revenue):
 def calc(revenue):
     global gratuity, revenuecopy, products, services, provider, exceptions
     gratuity = 0
-    exceptions = pd.DataFrame
     revenue['Description'] = revenue['Description'].replace('No show fee','No show fee|$40.00')
     revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
     gratuity = round(revenue["Gratuity"].sum(), 2)
     revenue['Product'] = ''
     revenuelist = list(revenue['Description'].to_list())
     revenuecopy = pd.DataFrame(columns = revenue.columns)
-    restrictlist = ['Retightening', 'Reti', 'reti' 'hrs', 'Consultation', 'Install', 'install', 'Follow-up', 'Maintenance', 'maintenance', 'Deep Conditioning', 'Repair', 'Shampoo', 'Balance', 'balance', 'Color', 'color']
+    restrictlist = ['Retightening', 'Reti', 'reti' 'hrs','with','Consultation', 'Install', 'install', 'Follow-up', 'Maintenance', 'maintenance', 'Deep Conditioning', 'conditioning','Conditioning','trim','Trim','Wash','wash','Style','style','Repair', 'Shampoo|$25','Shampoo Service','Balance', 'balance', 'Color', 'color','Deposit','deposit','show']
     index = -1
     for i in revenuelist:
         index = index + 1
@@ -83,6 +82,7 @@ def calc(revenue):
     revenuecopy = revenuecopy.dropna(subset=['Client Name']).reset_index()
     #Change Prices
     revenuelist = list(revenuecopy['Description'].to_list())
+    exceptions = pd.DataFrame(columns = revenuecopy.columns)
     index = -1
     for i in revenuelist:
         index = index + 1
@@ -92,7 +92,7 @@ def calc(revenue):
             price = desc_list[1]
         except Exception:
             exceptions = exceptions.append(revenuecopy.iloc[index])
-            revenuecopy = revenuecopy.drop[index]
+            revenuecopy = revenuecopy.drop([index])
 
         revenuecopy.loc[index, 'Amount Charged'] = price
     if provider != 'All Providers':
