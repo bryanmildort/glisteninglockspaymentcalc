@@ -6,7 +6,7 @@ warnings.filterwarnings("ignore")
 
 #Calculations: Products 85% commission, Services 35% commission, Deduct Cash Payments
 def payment_calc(revenue):
-    global provider, gratuity, revenuecopy, products, services
+    global provider, gratuity, revenuecopy, products, services, exceptions
     revenue['Product'] = ''
     #if provider != 'All Providers':
         #revenue = revenue[revenue["Provider or Instructor"] == provider].reset_index()
@@ -47,6 +47,9 @@ def payment_calc(revenue):
         'Total Commissions': commission,
         'Final Electronic Payment Due': final_payment
     }
+    if not exceptions.empty:
+        st.write('Alert! The following transactions could not be recognized:')
+        st.write(exceptions)
     st.write(results)
     keep = ['Processed On','Description','Provider or Instructor','Client Name','Amount Charged','Gratuity','Confirmation Code','Product']
     st.write('Services:')
@@ -55,7 +58,7 @@ def payment_calc(revenue):
     st.write(products[keep])
 
 def calc(revenue):
-    global gratuity, revenuecopy, products, services, provider
+    global gratuity, revenuecopy, products, services, provider, exceptions
     gratuity = 0
     revenue['Description'] = revenue['Description'].replace('No show fee','No show fee|$40.00')
     revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
@@ -64,13 +67,15 @@ def calc(revenue):
     revenuelist = list(revenue['Description'].to_list())
     revenuecopy = pd.DataFrame(columns = revenue.columns)
     restrictlist = ['Retightening', 'Reti', 'reti' 'hrs', 'Consultation', 'Install', 'install', 'Follow-up', 'Maintenance', 'maintenance', 'Deep Conditioning', 'Repair', 'Shampoo', 'Balance', 'balance', 'Color', 'color']
+    index = -1
     for i in revenuelist:
+        index = index + 1
         description = str(i)
         size = len(description)
         mod_desc = description[:size - 2]
         desc_list = mod_desc.split('  ')
         for z in desc_list:
-            revenuecopy = revenuecopy.append(revenue.iloc[revenuelist.index(i)])
+            revenuecopy = revenuecopy.append(revenue.iloc[index])
             revenuecopy.iloc[-1:, 1] = z
             revenuecopy.iloc[-1: , -1:] = 'N' if any(x in z for x in restrictlist) else 'Y'
 
@@ -82,7 +87,12 @@ def calc(revenue):
         index = index + 1
         description = str(i)
         desc_list = description.split('|')
-        price = desc_list[1]
+        try:
+            price = desc_list[1]
+        except:
+            exceptions = exceptions.append(revenuecopy.iloc[index])
+            revenuecopy = revenuecopy.drop[index]
+
         revenuecopy.loc[index, 'Amount Charged'] = price
     if provider != 'All Providers':
         revenuecopy = revenuecopy[revenuecopy["Provider or Instructor"] == provider].reset_index()
@@ -90,6 +100,7 @@ def calc(revenue):
     services = revenuecopy[revenuecopy["Product"] == 'N']
     payment_calc(revenuecopy)
 
+exceptions = pd.DataFrame
 gratuity = 0
 revenuecopy = pd.DataFrame()
 products = pd.DataFrame()
