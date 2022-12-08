@@ -34,7 +34,7 @@ def payment_calc(revenue):
 
     results = {
         'Gross': gross,
-        'Total Electronic Gratuity': gratuity,
+        'Electronic Gratuity': gratuity,
         'Net Services/Products': products_services,
         'Net Services': gross_services - gratuity,
         'Net Products': gross_products,
