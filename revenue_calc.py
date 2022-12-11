@@ -97,6 +97,7 @@ def calc(revenue):
         revenuecopy.loc[index, 'Amount Charged'] = price
     if provider != 'All Providers':
         revenuecopy = revenuecopy[revenuecopy["Provider or Instructor"] == provider].reset_index()
+        gratuity = round(revenue["Gratuity"].sum(), 2)
     products = revenuecopy[revenuecopy["Product"] == 'Y']
     services = revenuecopy[revenuecopy["Product"] == 'N']
     payment_calc(revenuecopy)
