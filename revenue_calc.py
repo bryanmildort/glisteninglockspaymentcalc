@@ -11,7 +11,8 @@ def payment_calc(revenue):
     #if provider != 'All Providers':
         #revenue = revenue[revenue["Provider or Instructor"] == provider].reset_index()
     revenue["Amount Charged"] = revenue["Amount Charged"].replace('[\$,]', '', regex=True).astype(float)
-    #revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
+    revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
+    gratuity = round(revenue["Gratuity"].sum(), 2)
     gross = round(revenue["Amount Charged"].sum(), 2)
     #gratuity = round(revenue["Gratuity"].sum(), 2)
     #products = revenue[revenue["Product"] == 'Y']
@@ -61,8 +62,8 @@ def calc(revenue):
     global gratuity, revenuecopy, products, services, provider, exceptions
     gratuity = 0
     revenue['Description'] = revenue['Description'].replace('No show fee','No show fee|$40.00')
-    revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
-    gratuity = round(revenue["Gratuity"].sum(), 2)
+    #revenue["Gratuity"] = revenue["Gratuity"].replace('[\$,]', '', regex=True).astype(float)
+    #gratuity = round(revenue["Gratuity"].sum(), 2)
     revenue['Product'] = ''
     revenuelist = list(revenue['Description'].to_list())
     revenuecopy = pd.DataFrame(columns = revenue.columns)
@@ -97,7 +98,6 @@ def calc(revenue):
         revenuecopy.loc[index, 'Amount Charged'] = price
     if provider != 'All Providers':
         revenuecopy = revenuecopy[revenuecopy["Provider or Instructor"] == provider].reset_index()
-        gratuity = round(revenue["Gratuity"].sum(), 2)
     products = revenuecopy[revenuecopy["Product"] == 'Y']
     services = revenuecopy[revenuecopy["Product"] == 'N']
     payment_calc(revenuecopy)
