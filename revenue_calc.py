@@ -23,6 +23,7 @@ def payment_calc(revenue):
     gross_services = round(services["Amount Charged"].sum(), 2)
     products_services = round(((gross_products + gross_services) - gratuity), 2)
     cash_payments = revenue[revenue['Tender Type'] == 'Cash']
+    cash_payments = cash_payments.append(revenue[revenue['Tender Type'] == 'Other'])
     cash_payments["Amount Charged"] = cash_payments["Amount Charged"].replace('[\$,]', '', regex=True).astype(float)
     cash = round(cash_payments["Amount Charged"].sum(), 2)
     cash_commission = round((cash*0.3), 2)
