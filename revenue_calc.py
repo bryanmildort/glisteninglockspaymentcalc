@@ -68,7 +68,7 @@ def calc(revenue):
     revenue['Product'] = ''
     revenuelist = list(revenue['Description'].to_list())
     revenuecopy = pd.DataFrame(columns = revenue.columns)
-    restrictlist = ['Retightening', 'Reti', 'reti' 'hrs','with','Consultation', 'Install', 'install', 'Follow-up', 'Maintenance', 'maintenance', 'Deep Conditioning', 'conditioning','Conditioning','trim','Trim','Wash','wash','Style','style','Repair', 'Shampoo|$25','Shampoo Service','Balance', 'balance', 'Color', 'color','Deposit','deposit','show']
+    restrictlist = ['Retightening', 'Reti', 'reti', 'hrs','with','Consultation', 'Install', 'install', 'Follow-up', 'Maintenance', 'maintenance', 'Maint', 'maint', 'Deep Conditioning', 'conditioning','Conditioning','trim','Trim','Wash','wash','Style','style','Repair', 'Shampoo|$25','Shampoo Service','Balance', 'balance', 'Color', 'color','Deposit','deposit','show']
     index = -1
     for i in revenuelist:
         index = index + 1
@@ -95,7 +95,7 @@ def calc(revenue):
         except Exception:
             exceptions = exceptions.append(revenuecopy.iloc[index])
             revenuecopy = revenuecopy.drop([index])
-            
+
         try:
             revenuecopy.loc[index, 'Amount Charged'] = price
         except UnboundLocalError:
