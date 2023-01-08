@@ -95,8 +95,12 @@ def calc(revenue):
         except Exception:
             exceptions = exceptions.append(revenuecopy.iloc[index])
             revenuecopy = revenuecopy.drop([index])
-
-        revenuecopy.loc[index, 'Amount Charged'] = price
+            
+        try:
+            revenuecopy.loc[index, 'Amount Charged'] = price
+        except UnboundLocalError:
+            price = 0
+            revenuecopy.loc[index, 'Amount Charged'] = price
     if provider != 'All Providers':
         revenuecopy = revenuecopy[revenuecopy["Provider or Instructor"] == provider].reset_index()
     products = revenuecopy[revenuecopy["Product"] == 'Y']
